@@ -8,45 +8,37 @@
 git clone https://github.com/AlexMiller93/Cook_book_service.git
 ```
 
-2.Создание виртуального окружения:
+2. Создание виртуального окружения:
 
 ```bash
 python -m venv venv
 ```
 
-3.Активация виртуального окружения:
+3. Активация виртуального окружения:
 
-    - На Windows:
+```bash
+venv\Scripts\activate
+```
 
-    ```bash
-    venv\Scripts\activate
-    ```
-
-    - На macOS и Linux:
-
-    ```bash
-    source venv/bin/activate
-    ```
-
-4.Установка зависимостей:
+4. Установка зависимостей:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-5.Запуск миграции:
+5. Запуск миграции:
 
 ```bash
 python manage.py migrate
 ```
 
-6.Создание суперпользователя (по желанию):
+6. Создание суперпользователя (по желанию):
 
 ```bash
 python manage.py createsuperuser
 ```
 
-7.Запуск сервера разработки:
+7. Запуск сервера разработки:
 
 ```bash
 python manage.py runserver
