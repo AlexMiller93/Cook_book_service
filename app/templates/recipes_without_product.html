@@ -1,12 +1,15 @@
 <!DOCTYPE html>
+{% load static %}
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipes without products</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <h4>Recipes without products or with products less than 10g</h4>
+    <h4>Recipes without product {{product.name}} or with products less than 10g</h4>
     <table>
 
 

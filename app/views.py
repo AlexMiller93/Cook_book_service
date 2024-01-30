@@ -1,19 +1,16 @@
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render
 
 from app.models import Product, Recipe, ProductsInRecipe
 
-# Create your views here.
-
-def add_product_to_recipe(request):
+def add_product_to_recipe(request: HttpRequest) -> None:
     
-    # add_product_to_recipe 
-    # с параметрами recipe_id, product_id, weight. 
-    # Функция добавляет к указанному рецепту указанный продукт 
-    # с указанным весом. 
-    # Если в рецепте уже есть такой продукт, 
-    # то функция должна поменять его вес в этом рецепте на указанный.
-    
+    """
+    функция добавляет к указанному рецепту указанный продукт с указанным весом. 
+    Если в рецепте уже есть такой продукт, 
+    то функция должна поменять его вес в этом рецепте на указанный.
+    """
+        
     recipe_id = request.GET.get('recipe_id')
     product_id = request.GET.get('product_id')
     weight = request.GET.get('weight')
@@ -39,12 +36,11 @@ def add_product_to_recipe(request):
     
     return HttpResponse("Product added to recipe successfully")
 
-def cook_recipe(request):
-    '''
-    cook_recipe c параметром recipe_id. 
+def cook_recipe(request: HttpRequest) -> None:
+    """
     Функция увеличивает на единицу количество приготовленных блюд 
     для каждого продукта, входящего в указанный рецепт.
-    '''
+    """
     
     recipe_id = request.GET.get('recipe_id')
     
@@ -63,15 +59,14 @@ def cook_recipe(request):
 
     return HttpResponse("Recipe cooked successfully")
 
-def show_recipes_without_product(request):
-    '''
-    show_recipes_without_product с параметром product_id. 
+def show_recipes_without_product(request: HttpRequest) -> None:
+    
+    """
     Функция возвращает HTML страницу, на которой размещена таблица. 
     В таблице отображены id и названия всех рецептов, 
     в которых указанный продукт отсутствует, или присутствует 
-    в количестве меньше 10 грамм. Страница должна генерироваться 
-    с использованием Django templates
-    '''
+    в количестве меньше 10 грамм. 
+    """
     
     product_id = request.GET.get('product_id')
     
@@ -87,8 +82,13 @@ def show_recipes_without_product(request):
     recipes = Recipe.objects.exclude(
         productsinrecipe__product=product, productsinrecipe__weight__gte=10
         )
-
-    context = {'recipes': recipes}
     
-    return render(request, 'recipes_without_product.html', context)
+    return render(
+        request, 
+        'recipes_without_product.html', 
+        {
+            'recipes': recipes,
+            'product': product
+        }
+    )
     
